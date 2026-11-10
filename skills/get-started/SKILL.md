@@ -25,12 +25,13 @@ connected and within their role in each store.
   delivery, pickup points, taxes, legal texts, the storefront's look and web
   address, Stripe.
 - **Team**: members and invitations.
-- **New stores**: create one and take it online (see the `launch-store` skill).
+- **New stores**: if you have `stores_create`, create one and take it online
+  (see the `launch-store` skill).
 - **The inbox** (`inbox_list`): what needs the user's attention now.
 
 The tools you see depend on the groups the user ticked when they connected:
-"Daily operations" by default, plus "Catalog", "Settings", "Team" and
-"Subscription" if they added them. When the user asks for something whose
+"Daily operations" by default, plus the other groups they added, such as
+"Catalog", "Settings" and "Team". When the user asks for something whose
 tool you don't have, say which group it belongs to: they can add it in Louez,
 under Settings > Integrations > MCP.
 
@@ -39,8 +40,8 @@ under Settings > Integrations > MCP.
 1. Call `stores_list`. A connection can reach several stores.
 2. Pass the chosen store's `id` as `storeId` to every other tool. If there are
    several stores and the user didn't say which, ask.
-3. No store yet: offer to create one (`launch-store` skill), or let the user
-   create it in Louez.
+3. No store yet: if you have `stores_create`, offer to create one
+   (`launch-store` skill); otherwise ask the user to create it in Louez.
 
 ## Confirmations
 
@@ -71,8 +72,8 @@ Never build or guess a Louez URL. Without a link, name the record instead.
 
 ## Steps only the user can take
 
-Some steps happen outside the chat: Stripe's identity checks, adding a billing
-card, approving a team invitation. Their tool returns a link: give it to the
+Some steps happen outside the chat, such as Stripe's identity checks or
+approving a team invitation. Their tool returns a link: give it to the
 user as it is and never open it yourself. `handoffs_get` with the returned id
 then tells you where the step stands, so the user does not have to report
 back.
@@ -81,9 +82,9 @@ back.
 
 - Read before you change: `products_get` before `products_update`,
   `settings_get` before a settings change.
-- Check a web address before using it: `stores_check_slug_availability`
-  before `stores_create`, `online_store_check_slug_availability` before
-  `online_store_update_slug`.
+- Check a web address before using it: `online_store_check_slug_availability`
+  before `online_store_update_slug`, and `stores_check_slug_availability`
+  before `stores_create` when you have it.
 - Amounts are in the store's currency. Say the currency when you quote one.
 - When a tool refuses for lack of rights, say so: the user's role or the
   rights they gave this connection don't allow it.

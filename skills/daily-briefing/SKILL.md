@@ -15,7 +15,9 @@ only: nothing in this briefing changes the store.
    the user wants all of them.
 2. **What needs attention.** Call `inbox_list` with the `storeId` and no
    cursor. Each item has a severity (`critical`, `warning`, `info`), one
-   sentence to tell the user, the tools that act on it and `links`. Keep the
+   sentence to tell the user, the tools that act on it and `links`. While
+   `hasMore` is true, call it again at once with `nextCursor`: items come
+   oldest first, so a critical one may be on a later page. Keep the last
    `nextCursor`: called again with it later, `inbox_list` returns only what is
    new.
 3. **Today's pickups and returns.** Call `reservations_list_upcoming` with
