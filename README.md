@@ -68,7 +68,8 @@ in the Cursor Marketplace, which also serves Grok Bot's catalog.
 
 ### ChatGPT and Codex
 
-A ChatGPT and Codex plugin is coming. Until then, on ChatGPT Business,
+A ChatGPT and Codex plugin is awaiting submission to OpenAI's Plugin
+Directory (package in [`openai/`](openai/README.md)). Until it is listed, on ChatGPT Business,
 Enterprise and Edu (web), a workspace owner or admin, or on Enterprise and Edu
 a member they allow, opens Plugins, clicks "+" then "Add custom MCP server",
 names it Louez, pastes the address above and chooses OAuth. ChatGPT can't create
@@ -117,13 +118,15 @@ Integrations > MCP.
 .claude-plugin/plugin.json        Claude Code plugin manifest (registers the MCP server)
 .claude-plugin/marketplace.json   Claude Code marketplace with this one plugin
 .cursor-plugin/plugin.json        Cursor plugin manifest
+openai/                           ChatGPT and Codex plugin (Agent Plugins format), see openai/README.md
 skills/                           Skills shared by every format
-brand/                            Louez icon (SVG, and a 512 px PNG)
-.github/                          CI: checks the manifests and skills
+brand/                            Louez icon (SVG, and a 512 px PNG) and the bare Duo mark
+scripts/                          Builds the ChatGPT ZIP and renders its images
+.github/                          CI: checks the manifests and skills, and the ChatGPT package
 ```
 
-The root `plugin.json`, `mcp.json` and `assets/` are kept for the ChatGPT and
-Codex plugin ([Agent Plugins](https://agent-plugins.org) format).
+The ChatGPT package sits in `openai/`, not at the root: Cursor reads a root
+`plugin.json` as an [Agent Plugins](https://agent-plugins.org) manifest.
 
 To check your changes:
 
@@ -131,6 +134,7 @@ To check your changes:
 npm install --no-save --no-package-lock ajv@8 ajv-formats@3
 node .github/scripts/validate.mjs
 claude plugin validate --strict .
+node scripts/build-openai-zip.mjs --draft
 ```
 
 When you change a plugin, bump `version` in its manifest: Claude Code only
