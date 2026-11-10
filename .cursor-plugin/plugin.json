@@ -1,0 +1,24 @@
+{
+  "name": "louez",
+  "displayName": "Louez",
+  "version": "1.0.0",
+  "description": "Run your rental shop (bikes, surf, ski, boats, equipment) from your agent: see what's on today, manage bookings, build your catalog with seasonal prices, and set up and launch a new store. Money, deletions and messages to customers wait for your approval.",
+  "author": {
+    "name": "Louez",
+    "email": "contact@louez.io"
+  },
+  "publisher": "Louez",
+  "homepage": "https://louez.io",
+  "repository": "https://github.com/Synapsr/louez-assistant-plugins",
+  "license": "MIT",
+  "keywords": ["rental", "booking", "reservations", "inventory", "small-business", "louez", "mcp"],
+  "category": "productivity",
+  "tags": ["rental", "booking", "small-business"],
+  "logo": "brand/louez-icon.png",
+  "skills": "./skills/",
+  "mcpServers": {
+    "louez": {
+      "url": "https://app.louez.io/api/mcp"
+    }
+  }
+}

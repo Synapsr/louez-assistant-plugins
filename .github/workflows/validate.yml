@@ -1,0 +1,28 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  # Cursor's plugin manifest schema, pinned to a commit of cursor/plugins.
+  CURSOR_SCHEMA_URL: https://raw.githubusercontent.com/cursor/plugins/de8ee15dd1194627d21eb5fcd41cb1873208dabb/schemas/plugin.schema.json
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install the schema validator
+        run: npm install --no-save --no-package-lock ajv@8 ajv-formats@3
+      - name: Download Cursor's plugin schema
+        run: curl -fsSL "$CURSOR_SCHEMA_URL" -o "$RUNNER_TEMP/cursor-plugin.schema.json"
+      - name: Check manifests and skills
+        run: node .github/scripts/validate.mjs "$RUNNER_TEMP/cursor-plugin.schema.json"

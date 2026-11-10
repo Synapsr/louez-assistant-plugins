@@ -1,0 +1,18 @@
+{
+  "name": "louez",
+  "description": "Louez's plugin for Claude Code: run your rental shop from Claude.",
+  "owner": {
+    "name": "Louez",
+    "email": "contact@louez.io",
+    "url": "https://louez.io"
+  },
+  "plugins": [
+    {
+      "name": "louez",
+      "source": "./",
+      "description": "Run your rental shop from Claude: bookings, catalog, settings and store launch, through Louez's MCP server.",
+      "category": "productivity",
+      "tags": ["rental", "booking", "small-business"]
+    }
+  ]
+}

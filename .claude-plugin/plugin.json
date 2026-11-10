@@ -1,0 +1,26 @@
+{
+  "name": "louez",
+  "displayName": "Louez",
+  "version": "1.0.0",
+  "description": "Run your rental shop from Claude: see what's on today, manage bookings, build your catalog with seasonal prices, and set up and launch a new store. Money, deletions and messages to customers wait for your approval.",
+  "author": {
+    "name": "Louez",
+    "email": "contact@louez.io",
+    "url": "https://louez.io"
+  },
+  "homepage": "https://louez.io",
+  "repository": "https://github.com/Synapsr/louez-assistant-plugins",
+  "license": "MIT",
+  "keywords": ["rental", "booking", "reservations", "inventory", "small-business", "louez", "mcp"],
+  "icon": "./brand/louez-icon.png",
+  "documentationUrl": "https://louez.io/en/help/ai-assistants",
+  "supportUrl": "https://louez.io/en/contact",
+  "privacyPolicyUrl": "https://louez.io/en/legal/privacy-policy",
+  "termsOfServiceUrl": "https://louez.io/en/legal/terms",
+  "mcpServers": {
+    "louez": {
+      "type": "http",
+      "url": "https://app.louez.io/api/mcp"
+    }
+  }
+}
