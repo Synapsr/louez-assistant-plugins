@@ -2,7 +2,7 @@
   "name": "louez",
   "displayName": "Louez",
   "version": "1.0.0",
-  "description": "Run your rental shop from Claude: see what's on today, manage bookings, build your catalog with seasonal prices, and set up and launch a new store. Money, deletions and messages to customers wait for your approval.",
+  "description": "Run your rental shop from Claude: see what's on today, manage bookings, build your catalog with seasonal prices, and set up and launch a new store. Payments always show a preview first; deletions and messages to customers do too unless you turn confirmations off.",
   "author": {
     "name": "Louez",
     "email": "contact@louez.io",

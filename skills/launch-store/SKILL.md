@@ -9,9 +9,9 @@ Take the user from "I want to rent out surfboards in Brest" to a store that
 customers can book. Ask for what you don't know; don't invent business
 details (prices, address, legal identity).
 
-**Some assistants can't create stores.** ChatGPT, for one, has no
-`stores_create`. Without that tool, ask the user to create the store in Louez
-(https://louez.io), then carry on from step 3 with the new store.
+**Some assistants can't create stores.** If you have no `stores_create`, ask
+the user to create the store in Louez themselves, then carry on from step 3
+with the new store.
 
 ## 1. Check the web address
 
@@ -26,10 +26,12 @@ Call `stores_create` with `name`, `slug`, `country` (ISO code such as `FR`),
 `currency` (such as `EUR`), `address`, `email`, `phone`, and an
 `idempotencyKey` so a retry never creates a second store.
 
-The first call answers `CONFIRMATION_REQUIRED`: the preview shows the name,
-the future public address, the country, the currency and the pricing Louez
-applies, since the store starts a billing relationship with Louez. Show it,
-wait for the user's yes, then call again with the `confirmationToken`.
+Before calling, sum up what you will create (name, address, country,
+currency) and get the user's yes. With confirmations on (the default), the
+first call answers `CONFIRMATION_REQUIRED` with a preview, which also shows the
+pricing Louez applies: show it, wait for the user's yes, then call again with
+the `confirmationToken`. With confirmations off, the first call creates the
+store at once.
 
 The store is created **offline**. Use its `id` as `storeId` from now on.
 Creating a store needs a connection with "Read and edit" rights on all the
@@ -70,8 +72,9 @@ what the law of the store's country asks.
 
 ## 5. Go live
 
-When the user is happy, call `stores_go_live` (optionally with
-`reservationMode`: `payment` or `request`). It answers
+Ask the user before calling `stores_go_live` (optionally with
+`reservationMode`: `payment` or `request`): with confirmations off, it puts
+the store online at once. With confirmations on, it answers
 `CONFIRMATION_REQUIRED` with a preview: the public address, how customers
 book, what is still missing. Show it, wait for the user's yes, then call again
 with the `confirmationToken`. It returns the storefront's address and the

@@ -69,8 +69,9 @@ in the Cursor Marketplace, which also serves Grok Bot's catalog.
 ### ChatGPT and Codex
 
 A ChatGPT and Codex plugin is coming. Until then, on ChatGPT Business,
-Enterprise and Edu, open Plugins, click "+" then "Add custom MCP server",
-name it Louez, paste the address above and choose OAuth. ChatGPT can't create
+Enterprise and Edu (web), a workspace owner or admin, or on Enterprise and Edu
+a member they allow, opens Plugins, clicks "+" then "Add custom MCP server",
+names it Louez, pastes the address above and chooses OAuth. ChatGPT can't create
 a store: create it in Louez first, then let ChatGPT carry on.
 
 ### Other assistants
@@ -100,9 +101,10 @@ click "Allow".
   store.
 - **Confirmations**: on by default. Before a sensitive action (a payment, a
   deletion, a message to a customer, an answer to a booking request, a store
-  going online), Louez answers with a preview and does nothing until the
-  assistant comes back with your approval. Payments always ask, even with
-  confirmations off.
+  going online), Louez answers with a preview and acts only when the
+  assistant calls again with that preview's token. The assistant is told to
+  show you the preview and wait for your yes; Louez cannot check that you
+  said it. Payments always ask, even with confirmations off.
 - **Tools shown**: "Daily operations" by default; add "Catalog", "Settings",
   "Team" or "Subscription" as you need them.
 
