@@ -81,7 +81,7 @@
               "description": "Business figures: revenue and best products over a period. Read-only.",
               "prompt": "How has the shop done over the last 30 days, and which products earn the most?",
               "tools_triggered": "get_revenue_report, get_product_performance",
-              "expected_behavior": "Reports the demo store's revenue over the last 30 days and ranks its products by revenue and bookings, from the store's real figures (a small demo store with a few bookings). Invents no figure and changes nothing."
+              "expected_behavior": "Reports the demo store's revenue over the last 30 days and ranks its products by revenue and bookings, from the store's real figures (a small demo store with a few bookings). If the period holds no bookings, it says so plainly instead of a ranking. Invents no figure and changes nothing."
             }
           ],
           "negative": [
