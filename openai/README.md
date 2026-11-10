@@ -29,9 +29,10 @@ promotion words, the word "password", and any e-mail address other than the
 author's. Reviewer credentials go in the portal (Review details), never in the
 ZIP.
 
-The only placeholder is `review.demo_recording_url`: the demo video's public
-link (2 to 3 minutes, desktop and mobile, the consent page and the test
-cases).
+`review.demo_recording_url` is the demo video: the eight test cases played in
+ChatGPT on the review account's demo store, published as an asset of the
+release `openai-demo-2026-11-10`. A new recording goes in a new release, and
+the build refuses to run while the field holds a placeholder.
 
 ## Rules this relies on
 

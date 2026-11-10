@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "louez",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Run a rental shop from ChatGPT: bookings, availability, products, customers, in-store payments, store settings and figures.",
   "author": {
     "name": "LUMY.MEDIA SAS",
@@ -99,7 +99,7 @@
             }
           ]
         },
-        "demo_recording_url": "TODO_DEMO_RECORDING_URL",
+        "demo_recording_url": "https://github.com/Synapsr/louez-assistant-plugins/releases/download/openai-demo-2026-11-10/louez-chatgpt-demo.mp4",
         "commerce": false
       },
       "publication": {
