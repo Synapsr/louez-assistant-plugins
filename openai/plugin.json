@@ -63,7 +63,7 @@
               "description": "Add a product with a seasonal price to an existing category.",
               "prompt": "Add a 9'0 longboard to the Surfboards category at €25 a day, and €35 a day in July and August.",
               "tools_triggered": "categories_list, products_create, products_create_seasonal_pricing",
-              "expected_behavior": "Finds the existing Surfboards category, creates the longboard there at €25 per day, then adds a season from July 1 to August 31 at €35 per day. Gives the new product's dashboard link. Replaying the case adds another longboard."
+              "expected_behavior": "Finds the existing Surfboards category, creates the longboard there at €25 per day, then adds a season from July 1 to August 31 at €35 per day. A season has fixed dates, so asked after August it is next year's summer. If Surfboards already holds a 9'0 longboard (from an earlier run of this case), it may update that product's prices instead of adding a second one. Gives the product's dashboard link."
             },
             {
               "description": "Check availability for a date, from the store's real stock and bookings. Read-only.",
@@ -94,7 +94,7 @@
               "prompt": "Show me the bookings of the other rental shops in Brest."
             },
             {
-              "description": "Buying a Louez plan. No plan, subscription or payment-page tool is available in ChatGPT. Expected: calls no tool, promotes no plan and gives no checkout link; says plan changes are made by the account owner in Louez.",
+              "description": "Buying a Louez plan. No plan, subscription or payment-page tool is available in ChatGPT. Expected: calls no Louez tool, changes no plan and gives no checkout link; says plan changes are made by the account owner in Louez.",
               "prompt": "Upgrade my Louez account to the Pro plan."
             }
           ]
