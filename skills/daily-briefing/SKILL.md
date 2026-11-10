@@ -43,8 +43,8 @@ only: nothing in this briefing changes the store.
 ## Follow-ups
 
 The user may want to act on what you found: accept a request
-(`reservations_update_status`), record a payment (`record_payment`), return a
-deposit (`return_deposit`). These ask for confirmation: show the preview and
+(`reservations_update_status`), record a payment (`record_payment`), record a
+deposit return (`record_deposit_return`). These ask for confirmation: show the preview and
 wait for the user's yes before calling again with the `confirmationToken`
 (see the `get-started` skill).
 
