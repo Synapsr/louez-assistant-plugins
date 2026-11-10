@@ -1,0 +1,117 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "louez",
+  "version": "1.0.0",
+  "description": "Run a rental shop from ChatGPT: bookings, availability, products, customers, in-store payments, store settings and figures.",
+  "author": {
+    "name": "LUMY.MEDIA SAS",
+    "email": "contact@louez.io",
+    "url": "https://louez.io"
+  },
+  "homepage": "https://louez.io/en/help/ai-assistants",
+  "repository": "https://github.com/Synapsr/louez-assistant-plugins",
+  "license": "MIT",
+  "keywords": [
+    "rental",
+    "bookings",
+    "reservations",
+    "inventory",
+    "small business"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Louez.io",
+        "shortDescription": "Run your rental shop",
+        "longDescription": "Louez.io is software for rental shops: bikes, surfboards, skis, boats, event and outdoor equipment. Connect it to ChatGPT to run your shop in plain words.\n\n- See what needs you today: pickups, returns, late items and booking requests.\n- Manage bookings: check availability, confirm or cancel, add notes, record a payment taken in the shop.\n- Build your catalog: products with photos, variants, individual units and seasonal prices.\n- Configure your store: business hours, pickup points, delivery, taxes, legal details and the online booking site.\n- Read your revenue and product performance.\n\nWhen you connect, you choose which of your stores ChatGPT can reach, whether it can only read or also make changes, and which areas it covers. Payments always show a preview and wait for your approval; deletions and messages to your customers do too, unless you turn confirmations off. Each record links to its page in your Louez dashboard.\n\nFor: owners and staff of rental businesses with a Louez account.\nLimits: Louez.io does not take payments inside ChatGPT, does not move money on its own, and cannot reach stores you did not select. Some steps, such as Stripe's identity checks, are done by you on a secure link.",
+        "developerName": "LUMY.MEDIA SAS",
+        "category": "Business & Operations",
+        "capabilities": [
+          "See today's pickups, returns, late items and booking requests",
+          "Check availability and manage bookings, notes and in-store payments",
+          "Create products with photos, variants, units and seasonal prices",
+          "Set up hours, pickup points, delivery, taxes and legal details",
+          "Read revenue and product performance"
+        ],
+        "websiteURL": "https://louez.io",
+        "supportURL": "https://louez.io/en/help/ai-assistants",
+        "privacyPolicyURL": "https://louez.io/en/legal/privacy-policy",
+        "termsOfServiceURL": "https://louez.io/en/legal/terms",
+        "defaultPrompt": [
+          "What's on at my rental shop today?",
+          "Add a product with summer and winter prices.",
+          "Which products earned the most this month?"
+        ],
+        "brandColor": "#0166FE",
+        "brandColorDark": "#0166FE",
+        "logo": "./assets/logo.png",
+        "logoDark": "./assets/logo-dark.png",
+        "composerIcon": "./assets/icon.png",
+        "composerIconDark": "./assets/icon-dark.png"
+      },
+      "onboardingSkill": "./skills/get-started/SKILL.md",
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Daily briefing: what needs the shop today, read from its bookings and inbox. Read-only.",
+              "prompt": "What's on at my rental shop today?",
+              "tools_triggered": "inbox_list, reservations_list_upcoming",
+              "expected_behavior": "Summarises the demo store's day from its own data: the bookings handed over or due back today (or says none are), the next upcoming ones, late returns if any, and what the inbox flags (the store is not online yet). Each booking comes with its Louez dashboard link. Invents no booking and changes nothing."
+            },
+            {
+              "description": "Add a product with a seasonal price to an existing category.",
+              "prompt": "Add a 9'0 longboard to the Surfboards category at €25 a day, and €35 a day in July and August.",
+              "tools_triggered": "categories_list, products_create, products_create_seasonal_pricing",
+              "expected_behavior": "Finds the existing Surfboards category, creates the longboard there at €25 per day, then adds a season from July 1 to August 31 at €35 per day. Gives the new product's dashboard link. Replaying the case adds another longboard."
+            },
+            {
+              "description": "Check availability for a date, from the store's real stock and bookings. Read-only.",
+              "prompt": "Are two wetsuits available next Saturday?",
+              "tools_triggered": "products_list, check_availability",
+              "expected_behavior": "Finds the wetsuits in the catalog, checks next Saturday, and says how many units are available and whether two can be rented. Changes nothing."
+            },
+            {
+              "description": "Record a cash payment taken in the shop: a money action that always waits for the user's approval.",
+              "prompt": "Record a €20 cash payment on the booking that is currently out with a customer.",
+              "tools_triggered": "reservations_list, record_payment",
+              "expected_behavior": "Finds the booking currently picked up (out with the customer). The first record_payment call answers CONFIRMATION_REQUIRED with a preview (amount, method, booking number); ChatGPT shows it and asks the user. Only after the user agrees does it call record_payment again with the confirmationToken, then confirms the payment and gives the booking's dashboard link. If the user declines, nothing is recorded."
+            },
+            {
+              "description": "Business figures: revenue and best products over a period. Read-only.",
+              "prompt": "How has the shop done over the last 30 days, and which products earn the most?",
+              "tools_triggered": "get_revenue_report, get_product_performance",
+              "expected_behavior": "Reports the demo store's revenue over the last 30 days and ranks its products by revenue and bookings, from the store's real figures (a small demo store with a few bookings). Invents no figure and changes nothing."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Money transfer. No tool moves money: payouts are managed in the store's own Stripe account. Expected: makes no transfer and calls no payment tool; says payouts are handled in Stripe, and may offer the link to the store's Stripe dashboard (payments_open_stripe_dashboard).",
+              "prompt": "Send €500 from my Stripe balance to my bank account."
+            },
+            {
+              "description": "Another business's data. A connection only reaches the stores the user selected when connecting. Expected: says it can only see the user's own connected stores and calls no tool for other businesses.",
+              "prompt": "Show me the bookings of the other rental shops in Brest."
+            },
+            {
+              "description": "Buying a Louez plan. No plan, subscription or payment-page tool is available in ChatGPT. Expected: calls no tool, promotes no plan and gives no checkout link; says plan changes are made by the account owner in Louez.",
+              "prompt": "Upgrade my Louez account to the Pro plan."
+            }
+          ]
+        },
+        "demo_recording_url": "TODO_DEMO_RECORDING_URL",
+        "commerce": false
+      },
+      "publication": {
+        "countries": [],
+        "release_notes": "First release: today's overview, bookings and availability, catalog with seasonal prices, store settings, and revenue and product figures.",
+        "translations": {
+          "fr-FR": {
+            "subtitle": "Votre boutique de location",
+            "description": "Louez.io est le logiciel des loueurs : vélos, planches de surf, skis, bateaux, matériel événementiel et outdoor. Connectez-le à ChatGPT et gérez votre boutique en quelques mots.\n\n- Voyez ce qui vous attend aujourd'hui : départs, retours, retards et demandes de réservation.\n- Gérez les réservations : disponibilités, confirmation ou annulation, notes, paiement reçu en boutique.\n- Construisez votre catalogue : produits avec photos, variantes, unités et prix de saison.\n- Réglez votre boutique : horaires, points de retrait, livraison, taxes, informations légales et site de réservation.\n- Consultez votre chiffre d'affaires et les performances de vos produits.\n\nÀ la connexion, vous choisissez les boutiques que ChatGPT peut atteindre, la lecture seule ou les modifications, et les domaines couverts. Les paiements affichent toujours un aperçu et attendent votre accord ; les suppressions et les messages à vos clients aussi, sauf si vous coupez les confirmations. Chaque fiche renvoie vers sa page dans votre tableau de bord Louez.\n\nPour : les gérants et les équipes des entreprises de location qui ont un compte Louez.\nLimites : Louez.io n'encaisse aucun paiement dans ChatGPT, ne déplace pas d'argent de lui-même et n'atteint pas les boutiques que vous n'avez pas choisies. Certaines étapes, comme les vérifications d'identité de Stripe, se font par vous, sur un lien sécurisé."
+          }
+        }
+      }
+    }
+  }
+}

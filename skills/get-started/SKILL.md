@@ -25,8 +25,8 @@ connected and within their role in each store.
   delivery, pickup points, taxes, legal texts, the storefront's look and web
   address, Stripe.
 - **Team**: members and invitations.
-- **New stores**: if you have `stores_create`, create one and take it online
-  (see the `launch-store` skill).
+- **New stores**: when your tools can create one, see the `launch-store`
+  skill.
 - **The inbox** (`inbox_list`): what needs the user's attention now.
 
 The tools you see depend on the groups the user ticked when they connected:
@@ -40,8 +40,8 @@ under Settings > Integrations > MCP.
 1. Call `stores_list`. A connection can reach several stores.
 2. Pass the chosen store's `id` as `storeId` to every other tool. If there are
    several stores and the user didn't say which, ask.
-3. No store yet: if you have `stores_create`, offer to create one
-   (`launch-store` skill); otherwise ask the user to create it in Louez.
+3. No store yet: when your tools can create one, offer to (`launch-store`
+   skill); otherwise ask the user to create it in Louez.
 
 ## Confirmations
 
@@ -83,8 +83,7 @@ back.
 - Read before you change: `products_get` before `products_update`,
   `settings_get` before a settings change.
 - Check a web address before using it: `online_store_check_slug_availability`
-  before `online_store_update_slug`, and `stores_check_slug_availability`
-  before `stores_create` when you have it.
+  before `online_store_update_slug`.
 - Amounts are in the store's currency. Say the currency when you quote one.
 - When a tool refuses for lack of rights, say so: the user's role or the
   rights they gave this connection don't allow it.

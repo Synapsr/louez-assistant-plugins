@@ -26,3 +26,5 @@ jobs:
         run: curl -fsSL "$CURSOR_SCHEMA_URL" -o "$RUNNER_TEMP/cursor-plugin.schema.json"
       - name: Check manifests and skills
         run: node .github/scripts/validate.mjs "$RUNNER_TEMP/cursor-plugin.schema.json"
+      - name: Check the ChatGPT package
+        run: node scripts/build-openai-zip.mjs --draft
